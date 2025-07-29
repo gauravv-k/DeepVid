@@ -1,6 +1,5 @@
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
-import 'package:deep_vid/features/home_page.dart';
 import 'package:deep_vid/features/onboarding/onboarding_page.dart';
 import 'package:deep_vid/features/rootscreen/rootpage.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       }
     });
     
-    Future.delayed(const Duration(milliseconds: 5500), () {
+    Future.delayed(const Duration(milliseconds: 5400), () {
       if (mounted) {
         final authCubit = context.read<AuthCubit>();
         final currentState = authCubit.state;

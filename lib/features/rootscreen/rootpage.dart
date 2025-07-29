@@ -1,3 +1,6 @@
+import 'package:deep_vid/features/community/community.dart';
+import 'package:deep_vid/features/favorite/all_favourite.dart';
+import 'package:deep_vid/features/favorite/favourite_page.dart';
 import 'package:flutter/material.dart';
 import 'package:deep_vid/features/ai_creation/ai_creation_page.dart';
 
@@ -30,6 +33,10 @@ class _RootPageState extends State<RootPage> {
     switch (_selectedIndex) {
       case 1: // AI Creation
         return const AiCreationPage();
+      case 0: // AI Creation
+        return const CommunityPage();
+      case 2: // AI Creation
+        return const FavouritePage();
       default:
         return Center(
           child: Text(

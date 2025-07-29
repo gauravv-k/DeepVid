@@ -8,13 +8,12 @@ class AiCreationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: const CustomAppBar(),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(70),
+        child: CustomAppBar(title: "Ai Creation"),
       ),
       backgroundColor: Colors.black12,
-      body:
-       ListView(
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         children: [          
           const SizedBox(height: 12),
