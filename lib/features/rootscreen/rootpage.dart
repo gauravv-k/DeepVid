@@ -1,6 +1,9 @@
+import 'package:deep_vid/features/ai_creation/widgets/showbox.dart';
 import 'package:deep_vid/features/community/community.dart';
 import 'package:deep_vid/features/favorite/all_favourite.dart';
 import 'package:deep_vid/features/favorite/favourite_page.dart';
+import 'package:deep_vid/features/my_creation/my_creation_page.dart';
+import 'package:deep_vid/features/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:deep_vid/features/ai_creation/ai_creation_page.dart';
 
@@ -15,13 +18,14 @@ class _RootPageState extends State<RootPage> {
   int _selectedIndex = 1; // AI Creation is selected by default
 
   // Commented out navigation screens as requested
-  // final List<Widget> _screens = [
-  //   const CommunityScreen(),
-  //   const AICreationScreen(),
-  //   const FavouriteScreen(),
-  //   const MyCreationScreen(),
-  //   const ProfileScreen(),
-  // ];
+  final List<Widget> _screens = [
+    const CommunityPage(),
+    const AiCreationPage(),
+    const FavouritePage(),
+    const MyCreationPage(),
+    const ShowBox(),
+    //   const ProfileScreen(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,43 +33,22 @@ class _RootPageState extends State<RootPage> {
     });
   }
 
-  Widget _getCurrentScreen() {
-    switch (_selectedIndex) {
-      case 1: // AI Creation
-        return const AiCreationPage();
-      case 0: // AI Creation
-        return const CommunityPage();
-      case 2: // AI Creation
-        return const FavouritePage();
-      default:
-        return Center(
-          child: Text(
-            'Screen ${_selectedIndex + 1}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontFamily: 'Urbanist',
-            ),
-          ),
-        );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A), // Dark background
-      body: _getCurrentScreen(),
+      backgroundColor: const Color(0xFF1C1C1C), // Dark background
+      body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF2A2A2A), // Dark gray background
+          color: Color.fromARGB(221, 32, 31, 31), // Dark gray background
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
           ),
         ),
         child: SafeArea(
           child: Padding(
+            // Increased padding for better touch area
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,41 +68,52 @@ class _RootPageState extends State<RootPage> {
 
   Widget _buildNavItem(int index, String iconPath, String label) {
     final isSelected = _selectedIndex == index;
-    
+
     return Expanded(
       child: GestureDetector(
         onTap: () => _onItemTapped(index),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 1),
+          // Increased padding for larger touch area
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
+          // Added margin for better spacing
+          //margin: const EdgeInsets.symmetric(horizontal: 1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 40,
-                height: 40,
+                height: 38,
                 decoration: isSelected
                     ? BoxDecoration(
-                        color: const Color.fromARGB(170, 150, 111, 243), // Purple background for selected
+                        color: const Color.fromARGB(60, 198, 88, 245), // Purple background for selected
                         borderRadius: BorderRadius.circular(10),
                       )
-                    : null,
+                    : BoxDecoration(
+                        // Added subtle background for unselected items
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                 child: Center(
                   child: Image.asset(
                     'assets/images/$iconPath',
-                    width: 20,
-                    height: 20,
-                    color: isSelected ? Colors.white : const Color(0xFF9CA3AF), // White for selected, gray for unselected
+                    width: 18,
+                    height: 18,
+                    color: isSelected
+                        ?const Color.fromARGB(255, 198, 88, 245)
+                        :Colors.grey // White for selected, gray for unselected
                   ),
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 label,
-                style:  TextStyle(
-                  color: isSelected ? Color.fromARGB(255, 160, 129, 234) : const Color(0xFF9CA3AF), // Always purple for bold
+                style: TextStyle(
+                  color: isSelected
+                      ? Color.fromARGB(255, 198, 88, 245)
+                      : Colors.grey, 
                   fontSize: 9,
                   fontFamily: 'Urbanist',
-                  fontWeight: FontWeight.bold, // Always bold
+                  fontWeight: FontWeight.w700, // Always bold
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 1,

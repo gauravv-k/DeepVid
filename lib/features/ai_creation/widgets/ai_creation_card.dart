@@ -86,7 +86,7 @@ class AiCreationCard extends StatelessWidget {
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10.0,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             fontFamily: 'Urbanist',
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -130,7 +130,7 @@ class AiCreationCard extends StatelessWidget {
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Urbanist',
                                 ),
                                 overflow: TextOverflow.ellipsis,
@@ -142,7 +142,7 @@ class AiCreationCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.9),
                                   fontSize: 11.0,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Urbanist',
                                 ),
                                 overflow: TextOverflow.ellipsis,

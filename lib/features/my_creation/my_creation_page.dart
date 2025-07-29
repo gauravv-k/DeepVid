@@ -2,16 +2,17 @@ import 'package:deep_vid/features/app_bar/app_bar.dart';
 import 'package:deep_vid/features/favorite/all_favourite.dart';
 import 'package:deep_vid/features/favorite/widgets/not_found_page.dart';
 import 'package:deep_vid/features/favorite/widgets/tab_bar.dart';
+import 'package:deep_vid/features/my_creation/all_my_creation_page.dart';
 import 'package:flutter/material.dart';
 
-class FavouritePage extends StatefulWidget {
-  const FavouritePage({super.key});
+class MyCreationPage extends StatefulWidget {
+  const MyCreationPage({super.key});
 
   @override
-  State<FavouritePage> createState() => _FavouritePageState();
+  State<MyCreationPage> createState() => _MyCreationPageState();
 }
 
-class _FavouritePageState extends State<FavouritePage>
+class _MyCreationPageState extends State<MyCreationPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedTabIndex = 0;
@@ -40,7 +41,7 @@ class _FavouritePageState extends State<FavouritePage>
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(70),
-        child: CustomAppBar(title: "Favourite"),
+        child: CustomAppBar(title: "My Creation"),
       ),
       body: Column(
         children: [
@@ -73,7 +74,7 @@ class _FavouritePageState extends State<FavouritePage>
               builder: (context) {
                 switch (_selectedTabIndex) {
                   case 0:
-                    return AllFavPage();
+                    return AllMyCreationPage();
                   case 1:
                     return NotFoundPage();
                   case 2:

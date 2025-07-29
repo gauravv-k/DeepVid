@@ -16,7 +16,7 @@ class AiCreationPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         children: [          
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           AiCreationCard(
               title: "AI VIDEO CREATION",
               description: "Generate stunning videos from text or images",
@@ -34,7 +34,7 @@ class AiCreationPage extends StatelessWidget {
             iconColor: const Color(0xFF8E44AD),
             backgroundImage: "assets/images/ai2.jpg",
             statusTag: "POPULAR",
-            statusColor: const Color.fromARGB(255, 179, 78, 185),
+            statusColor: const Color.fromARGB(255, 189, 4, 186),
             shadowColor: const Color.fromARGB(213, 141, 68, 173),
           ),
           const SizedBox(height: 20.0),

@@ -25,79 +25,77 @@ class AllFavPage extends StatelessWidget {
     ];
     return Scaffold(      
       backgroundColor: Colors.black12,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
-        child: GridView.builder(
-          itemCount: items.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 0.8,
-          ),
-          itemBuilder: (context, i) => GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                transitionAnimationController: AnimationController(
-                  duration: const Duration(milliseconds: 350),
-                  vsync: Navigator.of(context),
-                ),
-                builder: (context) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOutCubic,
-                  child: DraggableScrollableSheet(
-                    initialChildSize: 0.87,
-                    minChildSize: 0.5,
-                    maxChildSize: 0.87,
-                    expand: false,
-                    builder: (context, scrollController) => Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      body: GridView.builder(
+        itemCount: items.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 2,
+          childAspectRatio: 0.8,
+        ),
+        itemBuilder: (context, i) => 
+        GestureDetector(
+          onTap: () {              
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              transitionAnimationController: AnimationController(
+                duration: const Duration(milliseconds: 350),
+                vsync: Navigator.of(context),
+              ),
+              builder: (context) => AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutCubic,
+                child: DraggableScrollableSheet(
+                  initialChildSize: 0.87,
+                  minChildSize: 0.5,
+                  maxChildSize: 0.87,
+                  expand: false,
+                  builder: (context, scrollController) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    ),
+                    child: WidgetPreviewer(
+                      previewWidget: Image.asset(
+                        items[i]['img'] as String,
+                        fit: BoxFit.cover,
                       ),
-                      child: WidgetPreviewer(
-                        previewWidget: Image.asset(
-                          items[i]['img'] as String,
-                          fit: BoxFit.cover,
+                      userName: 'Guest User',
+                      userInitial: 'G',
+                      description: 'Preview of your favorite Collections',
+                      actions: [
+                        IconButton(
+                          icon: const Icon(Icons.favorite, color: Colors.white),
+                          onPressed: () {},
                         ),
-                        userName: 'Guest User',
-                        userInitial: 'G',
-                        description: 'Preview of your favorite Collections',
-                        actions: [
-                          IconButton(
-                            icon: const Icon(Icons.favorite, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.share, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.download, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.flag, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.more_horiz, color: Colors.white),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
+                        IconButton(
+                          icon: const Icon(Icons.share, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.download, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.flag, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.more_horiz, color: Colors.white),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-            child: AllFavGridItem(
-              imagePath: items[i]['img'] as String,
-              isVideo: items[i]['isVideo'] as bool,
-            ),
+              ),
+            );
+          },
+          child: AllFavGridItem(
+            imagePath: items[i]['img'] as String,
+            isVideo: items[i]['isVideo'] as bool,
           ),
         ),
       ),

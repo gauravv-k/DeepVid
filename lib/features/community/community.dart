@@ -41,13 +41,15 @@ class CommunityPage extends StatelessWidget {
       ),
       backgroundColor: Colors.black12,
       body: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 4.0, bottom: 12.0),
-              child: Text(
+            Container(
+              color: Colors.black12,
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 4.0, bottom: 12.0),
+              child: const Text(
                 "Popular Creations",
                 style: TextStyle(
                   fontFamily: 'Urbanist',
@@ -87,7 +89,8 @@ class CommunityPage extends StatelessWidget {
                             builder: (context, scrollController) => Container(
                               decoration: BoxDecoration(
                                 color: Colors.black,
-                                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(24)),
                               ),
                               child: WidgetPreviewer(
                                 previewWidget: Image.asset(
@@ -96,26 +99,32 @@ class CommunityPage extends StatelessWidget {
                                 ),
                                 userName: 'Guest User',
                                 userInitial: 'G',
-                                description: 'The house, after several days of heavy rain, the interior became damp and water started leakin...',
+                                description:
+                                    'The house, after several days of heavy rain, the interior became damp and water started leakin...',
                                 actions: [
                                   IconButton(
-                                    icon: const Icon(Icons.favorite, color: Colors.white),
+                                    icon: const Icon(Icons.favorite,
+                                        color: Colors.white),
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.share, color: Colors.white),
+                                    icon: const Icon(Icons.share,
+                                        color: Colors.white),
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.download, color: Colors.white),
+                                    icon: const Icon(Icons.download,
+                                        color: Colors.white),
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.flag, color: Colors.white),
+                                    icon: const Icon(Icons.flag,
+                                        color: Colors.white),
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.more_horiz, color: Colors.white),
+                                    icon: const Icon(Icons.more_horiz,
+                                        color: Colors.white),
                                     onPressed: () {},
                                   ),
                                 ],
@@ -126,10 +135,11 @@ class CommunityPage extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      // The CommunityGridItem already has rounded corners and stack
                       // We wrap it in a SizedBox to control the height
                       child: SizedBox(
-                        height: (i % 4 == 0 || i % 4 == 3) ? 100 : 250, // mimic the image's tall/short pattern
+                        height: (i % 4 == 0 || i % 4 == 3)
+                            ? 100
+                            : 250, // mimic the image's tall/short pattern
                         child: CommunityGridItem(
                           imagePath: items[i]['img'] as String,
                           isVideo: items[i]['isVideo'] as bool,

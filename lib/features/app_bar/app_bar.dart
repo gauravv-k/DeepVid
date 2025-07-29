@@ -31,10 +31,10 @@ class CustomAppBar extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 5.0),
+                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   color: const Color(0xFF232323),
-                  borderRadius: BorderRadius.circular(6.0),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
