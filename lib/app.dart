@@ -1,37 +1,31 @@
 import 'package:deep_vid/features/auth/data/firebase_auth_repo.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
-import 'package:deep_vid/features/auth/presentation/ui/auth_page.dart';
-import 'package:deep_vid/features/home/presentation/ui/home_page.dart';
+import 'package:deep_vid/features/onboarding/splash_page.dart';
 import 'package:deep_vid/features/themes/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-/*
 
+/*
 APP Root Level
 Repositories: for the database
 -firebase
 
 Bloc Providers: for state management
 -auth
--profile
--post
--search
--theme
+
 
 Check Auth State
--unauthenticated -> auth page (login/register)
--authenticated home page
-
+-unauthenticated -> onboarding page
+-authenticated -> home page
+-loading -> circular progress indicator
 */
 class MyApp extends StatelessWidget {
   //auth repo
   final firebaseAuthRepo = FirebaseAuthRepo();
- 
 
   MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -53,7 +47,6 @@ class MyApp extends StatelessWidget {
             theme: currentTheme,
             debugShowCheckedModeBanner: false,
             home: ScaffoldMessenger(
-              //bloc builder -- check current auth state
               child: BlocConsumer<AuthCubit, AuthStates>(
                 listener: (context, state) {
                   if (state is AuthError) {
@@ -66,13 +59,8 @@ class MyApp extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is Authenticated) {
-                    return HomePage();
-                  } else if (state is Unauthenticated) {
-                    return AuthPage();
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                  // Always show splash page first
+                  return const SplashPage();
                 },
               ),
             ),

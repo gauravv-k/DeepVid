@@ -4,9 +4,9 @@ import '../dark_theme.dart';
 import '../light_theme.dart';
 
 class ThemeCubit extends Cubit<ThemeData> {
-  bool _isDarkMode = false;
+  bool _isDarkMode = true; // Changed to true for dark mode default
 
-  ThemeCubit() : super(lightMode);
+  ThemeCubit() : super(darkMode); // Changed to darkMode
 
   bool get isDarkMode {
     // Check if current state matches dark theme

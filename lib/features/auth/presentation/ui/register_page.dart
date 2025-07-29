@@ -1,25 +1,27 @@
-import 'package:deep_vid/features/auth/components/buttons.dart';
-import 'package:deep_vid/features/auth/components/textfields.dart';
+
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
+import 'package:deep_vid/features/auth/presentation/ui/login_page.dart';
+import 'package:deep_vid/features/home/presentation/ui/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
-  final void Function()? togglePages;
-  const RegisterPage({super.key , required this.togglePages});
+  const RegisterPage({
+    super.key,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
- 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -35,9 +37,12 @@ class _RegisterPageState extends State<RegisterPage> {
     final email = emailController.text.trim();
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
-    
+
     // Basic validation
-    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (name.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill in all fields.'),
@@ -81,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    if (password != confirmPassword) {  
+    if (password != confirmPassword) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Passwords do not match.'),
@@ -115,9 +120,16 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           );
+        } else if (state is Authenticated) {
+          // Navigate to home page on successful authentication
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
         }
       },
       child: Scaffold(
+        backgroundColor:
+            Theme.of(context).colorScheme.surface, // Dark background
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -126,67 +138,582 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.lock_open,
-                    size: 70,
+                  // Logo centered in a circular shape
+                  Center(
+                    child: Container(
+                      width: 90,
+                      height: 90,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 32),
-                  MyTextField(
-                    controller: nameController,
-                    hintText: 'Name',
-                    obscureText: false,
-                  ),
-                  const SizedBox(height: 16),
-                  MyTextField(
-                    controller: emailController,
-                    hintText: 'Email',
-                    obscureText: false,
-                  ),
-                  const SizedBox(height: 16),
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 16),
-                  MyTextField(
-                    controller: confirmPasswordController,
-                    hintText: 'Confirm Password',
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 24),
-                  BlocBuilder<AuthCubit, AuthStates>(
-                    builder: (context, state) {
-                      return MyButton(
-                        text: state is AuthLoading ? 'Creating account...' : 'Register',
-                        onTap: register,
-                        isDisabled: state is AuthLoading,
-                      );
-                    },
+
+                  const SizedBox(height: 10),
+
+                  // Title
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      children: [
+                        const TextSpan(text: 'Welcome Back to '),
+                        TextSpan(
+                          text: 'Deep Vid',
+                          style: const TextStyle(
+                            color: Color(0xFF9066B8), // Purple
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 15),
+
+                  // Subtitle
+                  const Text(
+                    'Sign up or Login with',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+
+                  // Social Login Buttons
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Already a member?",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: const Color(0xFFC0A9EA),
+                                width: 0.5,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/google.png',
+                                  height: 24,
+                                  width: 24,
+                                ),
+                                const SizedBox(width: 8),
+                                SizedBox(
+                                  width: 65,
+                                  height: 24,
+                                  child: Text(
+                                    'Google',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                      color: Color(0xFFC0A9EA),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      GestureDetector(
-                        onTap: widget.togglePages,
-                        child: Text(
-                          "Login now",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                            fontWeight: FontWeight.bold,
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Container(
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: const Color(0xFFC0A9EA),
+                                width: 0.5,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/apple.png',
+                                  height: 24,
+                                  width: 24,
+                                ),
+                                const SizedBox(width: 8),
+                                SizedBox(
+                                  width: 65,
+                                  height: 24,
+                                  child: Text(
+                                    'Apple',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 15,
+                                      color: Color(0xFFC0A9EA),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 15),
+
+                  // OR Separator
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Container(
+                            height: 1,
+                            color: const Color(0xFF333333),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'OR',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Urbanist',
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Container(
+                            height: 1,
+                            color: const Color(0xFF333333),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  // Name  Field
+                  const SizedBox(
+                    width: 365,
+                    height: 19,
+                    child: Text(
+                      'Name ',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                        height: 1.0,
+                        letterSpacing: 0,
+                        color: Colors.white,
+                        // opacity: 1 is default for Text
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 366,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFF2B2B39),
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.email_outlined,
+                          color: Color(0xFF888888),
+                          size: 15,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: TextField(
+                            controller: nameController,
+                            obscureText: false,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                              height: 1.0,
+                              color: Color(0xB2D2CFE1), // #D2CFE1B2
+                            ),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter your name',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                height: 1.0,
+                                color: Color(0xB2D2CFE1), // #D2CFE1B2
+                              ),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  // Email Field
+                  const SizedBox(
+                    width: 365,
+                    height: 19,
+                    child: Text(
+                      'Email',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                        height: 1.0,
+                        letterSpacing: 0,
+                        color: Colors.white,
+                        // opacity: 1 is default for Text
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 366,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFF2B2B39),
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.email_outlined,
+                          color: Color(0xFF888888),
+                          size: 15,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: TextField(
+                            controller: emailController,
+                            obscureText: false,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                              height: 1.0,
+                              color: Color(0xB2D2CFE1), // #D2CFE1B2
+                            ),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter your email',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                height: 1.0,
+                                color: Color(0xB2D2CFE1), // #D2CFE1B2
+                              ),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Password Field
+                  const SizedBox(
+                    width: 365,
+                    height: 19,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                        height: 1.0,
+                        letterSpacing: 0,
+                        color: Colors.white,
+                        // opacity: 1 is default for Text
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 366,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFF2B2B39),
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.lock_outline,
+                          color: Color(0xFF888888),
+                          size: 15,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: TextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                              height: 1.0,
+                              color: Color(0xB2D2CFE1), // #D2CFE1B2
+                            ),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter your password',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                height: 1.0,
+                                color: Color(0xB2D2CFE1), // #D2CFE1B2
+                              ),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Confirm Password Field
+                  const SizedBox(
+                    width: 365,
+                    height: 19,
+                    child: Text(
+                      'Confirm Password',
+                      style: TextStyle(
+                        fontFamily: 'Urbanist',
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                        height: 1.0,
+                        letterSpacing: 0,
+                        color: Colors.white,
+                        // opacity: 1 is default for Text
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 366,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: const Color(0xFF2B2B39),
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.lock_outline,
+                          color: Color(0xFF888888),
+                          size: 15,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: TextField(
+                            controller: confirmPasswordController,
+                            obscureText: true,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                              height: 1.0,
+                              color: Color(0xB2D2CFE1), // #D2CFE1B2
+                            ),
+                            decoration: const InputDecoration(
+                              hintText: 'Confirm your password',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                height: 1.0,
+                                color: Color(0xB2D2CFE1), // #D2CFE1B2
+                              ),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Login Button
+                  BlocBuilder<AuthCubit, AuthStates>(
+                    builder: (context, state) {
+                      return Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Color(0xFFB089F1), // Light purple#B089F1
+                              Color(0xFF9066B8), // Darker purple#9066B8
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: state is AuthLoading ? null : register,
+                            borderRadius: BorderRadius.circular(8),
+                            child: Center(
+                              child: Text(
+                                state is AuthLoading
+                                    ? 'Creating account...'
+                                    : 'Sign up',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  // Register Link
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          "Already have an account..        ",
+                          style: const TextStyle(
+                            fontFamily: 'Urbanist',
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(
+                            color: Color(0xFFB39DDB), // Light purple border
+                            width: 0.5,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .surface, // Match dark bg
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Log in",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 17,
+                                  color: Color(0xFFB39DDB), // Light purple text
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.arrow_right_alt_rounded,
+                                color: Color(0xFFB39DDB),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
