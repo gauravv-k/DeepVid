@@ -2,7 +2,7 @@
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
 import 'package:deep_vid/features/auth/presentation/ui/login_page.dart';
-import 'package:deep_vid/features/home/presentation/ui/home_page.dart';
+import 'package:deep_vid/features/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

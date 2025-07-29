@@ -3,9 +3,7 @@ import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
 import 'package:deep_vid/features/auth/presentation/ui/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../components/textfields.dart';
-import '../../components/buttons.dart';
-import 'package:deep_vid/features/home/presentation/ui/home_page.dart';
+import 'package:deep_vid/features/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -528,7 +526,10 @@ class _LoginPageState extends State<LoginPage> {
                         width: 140,
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPage()));
                           },
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(

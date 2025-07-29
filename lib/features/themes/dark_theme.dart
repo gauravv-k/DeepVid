@@ -9,7 +9,7 @@ ThemeData darkMode = ThemeData(
 // dark
     secondary: Color.fromARGB(255, 20, 20, 20),
 // slightly dark
-    tertiary: Color.fromARGB(255, 29, 29, 29),
+    tertiary: Color.fromARGB(255, 44, 44, 44),
 // very light
     inversePrimary: Color.fromARGB(255, 195, 195, 195),
   ),

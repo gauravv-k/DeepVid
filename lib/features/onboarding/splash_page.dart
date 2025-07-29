@@ -1,7 +1,8 @@
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
-import 'package:deep_vid/features/home/presentation/ui/home_page.dart';
+import 'package:deep_vid/features/home_page.dart';
 import 'package:deep_vid/features/onboarding/onboarding_page.dart';
+import 'package:deep_vid/features/rootscreen/rootpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,7 +73,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         
         if (currentState is Authenticated) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const RootPage()),
           );
         } else {
           Navigator.of(context).pushReplacement(
