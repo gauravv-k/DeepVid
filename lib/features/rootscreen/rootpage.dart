@@ -23,8 +23,6 @@ class _RootPageState extends State<RootPage> {
     const AiCreationPage(),
     const FavouritePage(),
     const MyCreationPage(),
-    const ShowBox(),
-    //   const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -85,7 +83,8 @@ class _RootPageState extends State<RootPage> {
                 height: 38,
                 decoration: isSelected
                     ? BoxDecoration(
-                        color: const Color.fromARGB(60, 198, 88, 245), // Purple background for selected
+                        color: const Color.fromARGB(
+                            60, 198, 88, 245), // Purple background for selected
                         borderRadius: BorderRadius.circular(10),
                       )
                     : BoxDecoration(
@@ -94,14 +93,14 @@ class _RootPageState extends State<RootPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/$iconPath',
-                    width: 18,
-                    height: 18,
-                    color: isSelected
-                        ?const Color.fromARGB(255, 198, 88, 245)
-                        :Colors.grey // White for selected, gray for unselected
-                  ),
+                  child: Image.asset('assets/images/$iconPath',
+                      width: 18,
+                      height: 18,
+                      color: isSelected
+                          ? const Color.fromARGB(255, 198, 88, 245)
+                          : Colors
+                              .grey // White for selected, gray for unselected
+                      ),
                 ),
               ),
               const SizedBox(height: 4),
@@ -110,7 +109,7 @@ class _RootPageState extends State<RootPage> {
                 style: TextStyle(
                   color: isSelected
                       ? Color.fromARGB(255, 198, 88, 245)
-                      : Colors.grey, 
+                      : Colors.grey,
                   fontSize: 9,
                   fontFamily: 'Urbanist',
                   fontWeight: FontWeight.w700, // Always bold
