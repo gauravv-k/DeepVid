@@ -11,7 +11,7 @@ class AuthCubit extends Cubit<AuthStates> {
   final AuthRepo authRepo;
   AppUser? _currentUser;
 
-  AuthCubit({required this.authRepo}) : super(AuthInitial());
+  AuthCubit({required this.authRepo}) : super(AuthInitial()) {}
 
   //check if user is already authenticated
   Future<void> checkCurrentUser() async {
