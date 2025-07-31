@@ -1,5 +1,4 @@
-import 'package:deep_vid/features/onboarding/onboarding_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -178,26 +177,24 @@ class _SettingPageState extends State<SettingPage> {
   Widget _buildLogoutTile() {
     return InkWell(
       borderRadius: BorderRadius.circular(12),
-      onTap: () async {
-        // Import FirebaseAuth at the top of your file:
-        // import 'package:firebase_auth/firebase_auth.dart';
-        try {
-          await FirebaseAuth.instance.signOut();
-          if (mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => OnboardingPage()),
-            );
-          }
-        } catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Logout failed: $e'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
+      // onTap: () async {        
+      //   try {
+      //     await FirebaseAuth.instance.signOut();
+      //     // if (mounted) {
+      //     //   Navigator.pushReplacement(
+      //     //     context,
+      //     //     MaterialPageRoute(builder: (context) => OnboardingPage()),
+      //     //   );
+      //     // }
+      //   } catch (e) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(
+      //         content: Text('Logout failed: $e'),
+      //         backgroundColor: Colors.red,
+      //       ),
+      //     );
+      //   }
+      // },
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFF2A2A2A),

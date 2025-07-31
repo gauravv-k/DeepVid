@@ -235,7 +235,7 @@ class _AiImageCreatorPageState extends State<AiImageCreatorPage>
               height: 56,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purpleAccent,
+                  backgroundColor: const Color.fromARGB(213, 223, 64, 251),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                 ),
