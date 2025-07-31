@@ -1,11 +1,12 @@
 import 'package:deep_vid/features/app_bar/app_bar.dart';
+import 'package:deep_vid/features/profile/presentation/refer_page.dart';
 import 'package:deep_vid/features/settings/setting_page1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'data/firebase_profile_repo.dart';
 import 'presentation/cubits/profile_cubit.dart';
 import 'presentation/cubits/profile_states.dart';
+import 'package:deep_vid/utils/size_config.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,9 +28,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(70),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.h),
         child: CustomAppBar(title: "Profile"),
       ),
       body: BlocConsumer<ProfileCubit, ProfileStates>(
@@ -75,20 +77,20 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildProfileContent(profile) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // User Profile Section
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.w),
             child: Row(
               children: [
                 // Profile Image
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 80.w,
+                  height: 80.w,
                   child: ClipOval(
                     child: Image.asset(
                       'assets/images/profile1.jpg',
@@ -96,77 +98,76 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
                 // Name and Email
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                Text(
-                  profile.name.isNotEmpty ? profile.name : 'No Name',
-                  style: const TextStyle(
-                    fontSize: 24,
+                      Text(
+                        profile.name.isNotEmpty ? profile.name : 'No Name',
+                        style: TextStyle(
+                          fontSize: 24.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                           fontFamily: 'Urbanist',
-                  ),
-                ),
-                if (profile.email != null) ...[
-                        const SizedBox(height: 2),
-                  Text(
-                    profile.email,
-                          style: const TextStyle(
-                            fontSize: 13,
+                        ),
+                      ),
+                      if (profile.email != null) ...[
+                        SizedBox(height: 2.h),
+                        Text(
+                          profile.email,
+                          style: TextStyle(
+                            fontSize: 13.sp,
                             color: Color(0xFF9E9E9E),
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Urbanist',
-                    ),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                ],
+                ),
               ],
             ),
           ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 18),
+          SizedBox(height: 18.h),
 
           // Plan and Top-ups Section wrapped in background container
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color(0xCC222634), // #222634CC
-              borderRadius: BorderRadius.circular(16),
+              color: Color(0xCC222634),
+              borderRadius: BorderRadius.circular(16.w),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12.w),
               child: Column(
                 children: [
                   _buildPlanCard(),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   _buildTopUpsCard(),
-                  
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h),
 
           // Refer & Earn Section
           _buildReferEarnCard(),
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h),
 
           // Other Section
-          const Text(
+          Text(
             'Other',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w600,
               color: Colors.white,
               fontFamily: 'Urbanist',
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Other Options
           _buildOtherOption(
@@ -191,10 +192,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildPlanCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF2A2A2A),
-        borderRadius: BorderRadius.circular(12),
+        color: Color(0xFF2A2A2A),
+        borderRadius: BorderRadius.circular(12.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,62 +204,62 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Icon(
                 Icons.star,
-                color: const Color(0xFF8A56E2),
-                size: 20,
+                color: Color(0xFF8A56E2),
+                size: 20.w,
               ),
-              const SizedBox(width: 8),
-              const Text(
+              SizedBox(width: 8.w),
+              Text(
                 'Plan : Starter (Premium)',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Urbanist',
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8.h),
+          Text(
             'Renews on 12 July 2025',
             style: TextStyle(
               color: Color(0xFF9E9E9E),
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               fontFamily: 'Urbanist',
             ),
           ),
-            const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Opacity(
             opacity: 1,
             child: Container(
-              width: 84,
-              height: 32,
+              width: 84.w,
+              height: 32.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: const LinearGradient(
+                borderRadius: BorderRadius.circular(8.w),
+                gradient: LinearGradient(
                   colors: [Color(0xFF9066B8), Color(0xFFB089F1)],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
               ),
-              padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+              padding: EdgeInsets.fromLTRB(12.w, 6.h, 12.w, 6.h),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.w),
                   onTap: () {
                     // Handle manage button
                   },
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Manage',
                       style: TextStyle(
                         color: Color(0xFF0D0D12),
-                        fontSize: 13,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Urbanist',
-                        fontStyle: FontStyle.normal, 
+                        fontStyle: FontStyle.normal,
                       ),
                     ),
                   ),
@@ -274,10 +275,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildTopUpsCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF2A2A2A),
-        borderRadius: BorderRadius.circular(12),
+        color: Color(0xFF2A2A2A),
+        borderRadius: BorderRadius.circular(12.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,62 +287,62 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Icon(
                 Icons.add,
-                color: const Color(0xFF8A56E2),
-                size: 20,
+                color: Color(0xFF8A56E2),
+                size: 20.w,
               ),
-              const SizedBox(width: 8),
-              const Text(
+              SizedBox(width: 8.w),
+              Text(
                 'Add Tops-ups',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Urbanist',
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8.h),
+          Text(
             'Purchase extra credits for more creations',
             style: TextStyle(
               color: Color(0xFF9E9E9E),
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               fontFamily: 'Urbanist',
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Opacity(
             opacity: 1,
             child: Container(
-              width: 88,
-              height: 32,
+              width: 88.w,
+              height: 32.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: const LinearGradient(
+                borderRadius: BorderRadius.circular(8.w),
+                gradient: LinearGradient(
                   colors: [Color(0xFF9066B8), Color(0xFFB089F1)],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
               ),
-              padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+              padding: EdgeInsets.fromLTRB(12.w, 6.h, 12.w, 6.h),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.w),
                   onTap: () {
                     // Handle manage button
                   },
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Buy More',
                       style: TextStyle(
                         color: Color(0xFF0D0D12),
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Urbanist',
-                        fontStyle: FontStyle.normal, 
+                        fontStyle: FontStyle.normal,
                       ),
                     ),
                   ),
@@ -356,43 +357,43 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildReferEarnCard() {
     return Container(
-      width: 364,
+      width: 364.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: const LinearGradient(
+        borderRadius: BorderRadius.circular(12.w),
+        gradient: LinearGradient(
           colors: [Color(0xFF6033B0), Color(0xFF8752D8)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16), // Increased padding for better spacing
+        padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min, // Use minimum space needed
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               children: [
                 // Circular icon background
                 Container(
-                  width: 40,
-                  height: 40,
+                  width: 40.w,
+                  height: 40.w,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6A3FB8),
+                    color: Color(0xFF6A3FB8),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.people,
                     color: Colors.white,
-                    size: 20,
+                    size: 20.w,
                   ),
                 ),
-                const SizedBox(width: 10),
-                const Text(
+                SizedBox(width: 10.w),
+                Text(
                   'Refer & Earn',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Urbanist',
                     fontStyle: FontStyle.normal,
@@ -400,38 +401,38 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8.h),
+            Text(
               'Invite your friends and earn rewards!',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Urbanist',
                 fontStyle: FontStyle.normal,
               ),
             ),
-            const SizedBox(height: 16), // Fixed spacing instead of Spacer
+            SizedBox(height: 16.h),
             SizedBox(
-              width: 89,
-              height: 32,
+              width: 89.w,
+              height: 32.h,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle refer now button
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReferPage()),);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(1),
-                  foregroundColor: const Color(0xFF0D0D12),
+                  foregroundColor: Color(0xFF0D0D12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.w),
                   ),
-                  padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                  padding: EdgeInsets.fromLTRB(12.w, 6.h, 12.w, 6.h),
                 ),
                 child: Center(
-                  child: const Text(
+                  child: Text(
                     'Refer',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Urbanist',
                       fontStyle: FontStyle.normal,
@@ -448,40 +449,40 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildOtherOption(IconData icon, String title, {VoidCallback? onTap}) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: const Color(0xFF2A2A2A),
-        borderRadius: BorderRadius.circular(8),
+        color: Color(0xFF2A2A2A),
+        borderRadius: BorderRadius.circular(8.w),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.w),
           onTap: onTap,
           child: Row(
             children: [
               Icon(
                 icon,
                 color: Colors.white,
-                size: 20,
+                size: 20.w,
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Urbanist',
                   ),
                 ),
               ),
-              const Icon(
+              Icon(
                 Icons.chevron_right,
                 color: Colors.white,
-                size: 20,
+                size: 20.w,
               ),
             ],
           ),
@@ -497,24 +498,24 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Icon(
             Icons.person_off,
-            size: 64,
+            size: 64.w,
             color: Colors.grey[400],
           ),
-          const SizedBox(height: 16),
-          const Text(
+          SizedBox(height: 16.h),
+          Text(
             'Profile Not Found',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w700,
               color: Colors.white,
               fontFamily: 'Urbanist',
             ),
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8.h),
+          Text(
             'No profile data found for this user.',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               color: Color(0xFF9E9E9E),
               fontWeight: FontWeight.w400,
               fontFamily: 'Urbanist',
@@ -532,31 +533,31 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Icon(
             Icons.error_outline,
-            size: 64,
+            size: 64.w,
             color: Colors.red[400],
           ),
-          const SizedBox(height: 16),
-          const Text(
+          SizedBox(height: 16.h),
+          Text(
             'Error Loading Profile',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w700,
               color: Colors.red,
               fontFamily: 'Urbanist',
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             message,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: 16.sp,
               color: Color(0xFF9E9E9E),
               fontWeight: FontWeight.w400,
               fontFamily: 'Urbanist',
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           ElevatedButton(
             onPressed: () {
               final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -565,14 +566,15 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF8A56E2),
+              backgroundColor: Color(0xFF8A56E2),
               foregroundColor: Colors.white,
             ),
-            child: const Text(
+            child: Text(
               'Retry',
               style: TextStyle(
                 fontFamily: 'Urbanist',
                 fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
               ),
             ),
           ),

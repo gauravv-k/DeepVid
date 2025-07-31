@@ -1,7 +1,4 @@
-import 'package:deep_vid/features/ai_creation/widgets/ai_nav1.dart';
-import 'package:deep_vid/features/ai_creation/widgets/showbox.dart';
 import 'package:deep_vid/features/community/community.dart';
-import 'package:deep_vid/features/favorite/all_favourite.dart';
 import 'package:deep_vid/features/favorite/favourite_page.dart';
 import 'package:deep_vid/features/my_creation/my_creation_page.dart';
 import 'package:deep_vid/features/profile/profile_page.dart';
