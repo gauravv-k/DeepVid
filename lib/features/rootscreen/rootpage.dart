@@ -1,3 +1,4 @@
+import 'package:deep_vid/features/ai_creation/widgets/ai_nav1.dart';
 import 'package:deep_vid/features/ai_creation/widgets/showbox.dart';
 import 'package:deep_vid/features/community/community.dart';
 import 'package:deep_vid/features/favorite/all_favourite.dart';
@@ -23,6 +24,7 @@ class _RootPageState extends State<RootPage> {
     const AiCreationPage(),
     const FavouritePage(),
     const MyCreationPage(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

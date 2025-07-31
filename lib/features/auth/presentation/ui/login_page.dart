@@ -4,7 +4,7 @@ import 'package:deep_vid/features/auth/presentation/ui/register_page.dart';
 import 'package:deep_vid/features/rootscreen/rootpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:deep_vid/features/home_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({

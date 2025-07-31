@@ -3,6 +3,8 @@ import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
 import 'package:deep_vid/features/onboarding/splash_page.dart';
 import 'package:deep_vid/features/themes/cubit/theme_cubit.dart';
+import 'package:deep_vid/features/profile/data/firebase_profile_repo.dart';
+import 'package:deep_vid/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +15,7 @@ Repositories: for the database
 
 Bloc Providers: for state management
 -auth
+-profile
 
 
 Check Auth State
@@ -23,6 +26,8 @@ Check Auth State
 class MyApp extends StatelessWidget {
   //auth repo
   final firebaseAuthRepo = FirebaseAuthRepo();
+  //profile repo
+  final firebaseProfileRepo = FirebaseProfileRepo();
 
   MyApp({super.key});
 
@@ -38,6 +43,10 @@ class MyApp extends StatelessWidget {
           //theme cubit
           BlocProvider<ThemeCubit>(
             create: (context) => ThemeCubit(),
+          ),
+          //profile cubit
+          BlocProvider<ProfileCubit>(
+            create: (context) => ProfileCubit(profileRepo: firebaseProfileRepo),
           ),
           
         ], // theme builder

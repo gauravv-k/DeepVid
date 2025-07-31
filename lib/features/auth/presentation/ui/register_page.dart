@@ -2,7 +2,8 @@
 import 'package:deep_vid/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:deep_vid/features/auth/presentation/cubits/auth_states.dart';
 import 'package:deep_vid/features/auth/presentation/ui/login_page.dart';
-import 'package:deep_vid/features/home_page.dart';
+
+import 'package:deep_vid/features/rootscreen/rootpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -123,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
         } else if (state is Authenticated) {
           // Navigate to home page on successful authentication
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => const RootPage()),
           );
         }
       },

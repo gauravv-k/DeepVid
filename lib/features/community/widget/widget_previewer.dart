@@ -82,7 +82,7 @@ class WidgetPreviewer extends StatelessWidget {
             Expanded(
               child: Center(
                 child: FractionallySizedBox(
-                  widthFactor: 0.95,
+                  widthFactor: 0.93,
                   heightFactor: 1.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
@@ -126,13 +126,13 @@ class WidgetPreviewer extends StatelessWidget {
                               color: const Color.fromARGB(255, 66, 65, 65),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            width: 30,
-                            height: 30,
+                            width: 35,
+                            height: 35,
                             child: Center(
                               child: action is IconButton
                                   ? IconTheme(
                                       data: const IconThemeData(
-                                        size: 18, // Make icon small
+                                        size: 20, // Make icon small
                                         color: Colors.white,
                                       ),
                                       child: (action.icon),
@@ -144,27 +144,38 @@ class WidgetPreviewer extends StatelessWidget {
                       )
                       .toList(),
                   const Spacer(),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF232323),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    height: 35,
-                    width: 50,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Center(
-                      child: DefaultTextStyle(
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Regular',
+                  Builder(
+                    builder: (context) {
+                      final screenWidth = MediaQuery.of(context).size.width;
+                      final screenHeight = MediaQuery.of(context).size.height;
+                      final containerHeight = screenHeight * 0.052; // ~40px on 770px height
+                      final containerWidth = screenWidth * 0.21; // ~80px on 375px width
+                      final horizontalPadding = screenWidth * 0.032; // ~12px on 375px width
+                      final fontSize = screenWidth * 0.032; // ~12px on 375px width
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF232323),
+                          borderRadius: BorderRadius.circular(screenWidth * 0.021), // ~8px on 375px width
                         ),
-                        child: actions.last is IconButton
-                            ? const Text("More")
-                            : actions.last,
-                      ),
-                    ),
+                        height: containerHeight,
+                        width: containerWidth,
+                        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                        child: Center(
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontSize,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Regular',
+                            ),
+                            child: actions.last is IconButton
+                                ? const Text("More")
+                                : actions.last,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
